@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>webpack4.0新版本变化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="webpack4.0 新版本特性与变化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack4.0新版本变化">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/webpack4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="webpack4.0 新版本特性与变化">
+<meta property="og:updated_time" content="2018-03-14T12:08:44.496Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack4.0新版本变化">
+<meta name="twitter:description" content="webpack4.0 新版本特性与变化">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-webpack4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/14/webpack4/" class="article-date">
+  <time datetime="2018-03-14T12:03:24.000Z" itemprop="datePublished">2018-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webpack4.0新版本变化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>webpack4.0 新版本特性与变化<br><a id="more"></a></p>
+<blockquote>
+<p><a href="https://github.com/webpack/webpack/releases" target="_blank" rel="noopener">官方链接webpack4.0</a></p>
+</blockquote>
+<h3 id="大改动"><a href="#大改动" class="headerlink" title="大改动"></a>大改动</h3><ul>
+<li>环境<ul>
+<li>不再支持Nodejs 4。源代码已经更新到一个较高的ECMAscript版本。</li>
+</ul>
+</li>
+<li>用法<ul>
+<li>现在必须选择在 production 或 development 这两种模式中选择一种，参数 <code>mode</code>或<code>--mode</code><ul>
+<li>production 模式会生成最优化的包（bundles）</li>
+<li>development 模式开放注释和提示，并开启eval devtool功能</li>
+<li>production 模式不支持监听模式，development 模式拥有更快速的增量构建</li>
+<li>production 模式也可以把多个模块打包，<a href="https://zhuanlan.zhihu.com/p/27980441" target="_blank" rel="noopener">Scope Hoisting（作用域提升）</a></li>
+<li>可以通过<code>optimization.*</code> 的方式去设定更详细的配置（搭建你的自定义模式）</li>
+<li><code>process.env.NODE_ENV</code> 变量已经在 production 和 development 两种模式中被设置了（只在构建的代码里面，不在配置里）</li>
+<li>有一种隐藏<code>none</code>模式可以禁用所有内容</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>语法<ul>
+<li><code>import()</code> 总是返回一个带命名空间的对象。CommonJS模块会被包在export default 中。<ul>
+<li>如果使用<code>import()</code>的方式去导入你的CommonJS模块，这可能会破坏你的代码</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>配置<ul>
+<li>您不再需要使用这些插件：<ul>
+<li><code>NoEmitOnErrorsPlugin</code> -&gt; <code>optimization.noEmitOnErrors</code>（production模式默认开启）</li>
+<li><code>ModuleConcatenationPlugin</code> -&gt; <code>optimization.concatenateModules</code>（production模式默认开启）</li>
+<li><code>NamedModulesPlugin</code> -&gt; <code>optimization.namedModules</code>（development模式默认开启）</li>
+</ul>
+</li>
+<li><code>CommonsChunkPlugin</code> 已经移除 -&gt; <code>optimization.splitChunks</code>，<code>optimization.runtimeChunk</code></li>
+</ul>
+</li>
+<li>JSON<ul>
+<li>webpack现在能处理原生的JSON<ul>
+<li>当需要通过 loader 去把 json 转换成 js 的时候，你可能需要添加<code>type:&quot;javascript/auto&quot;</code></li>
+<li>不使用 loader 也可以直接使用 JSON</li>
+</ul>
+</li>
+<li>允许通过ESM语法导入JSON<ul>
+<li>未使用的JSON模块导出后会消除</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优化<ul>
+<li>更新 <code>uglifyjs-webpack-plugin</code> 到 v1<ul>
+<li>ES2015支持</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="大功能"><a href="#大功能" class="headerlink" title="大功能"></a>大功能</h3><ul>
+<li><p>模块</p>
+<ul>
+<li>webpack 现在支持下面的模块类型：<ul>
+<li><code>javascript/auto</code>: （webpack 3 默认值） 所有的 JS 模块规范都可用：CommonJS，AMD，ESM</li>
+<li><code>javascript/esm</code> ：EcmaScript 模块规范，其它的模块规范都不可用 (.mjs 文件的默认值)</li>
+<li><code>javascript/dynamic</code>: 仅支持 CommonJS 和 AMD，EcmaScript 模块规范不可用</li>
+<li><code>json</code>: JSON 数据，使用 require 和 import 导入 JSON 数据时可用 （.json 文件的默认值）</li>
+<li><code>webassembly/experimental</code>： WebAssembly 模块（当前还是实验版本）</li>
+</ul>
+</li>
+<li><code>javascript/esm</code> 处理 ESM 时候会比 <code>javascript/auto</code> 更加严格。<ul>
+<li>模块导入进来的名字，必须要在模块中存在。</li>
+<li>动态模块（非esm，比如CommonJS）只能通过 <code>default</code>导入，其他所有的方式（包括命名空间的导入）都会报错。</li>
+</ul>
+</li>
+<li>在<code>.mjs</code>的模块里面将默认使用<code>javascript/esm</code>模式</li>
+<li>WebAssembly模块<ul>
+<li>可以导入其他模块（JS和WASM）</li>
+<li>从WebAssembly导出的模块会经过ESM导入验证<ul>
+<li>当你从WASM的导出内容里面尝试导入一个不存在的内容的时候将会活动的警告/错误提示。</li>
+</ul>
+</li>
+<li>只能用在异步加载chunk里面，在初始化的chunk里面不能正常工作（对页面性能影响很大）。<ul>
+<li>通过import()的方式去导入WASM模块</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>优化</p>
+<ul>
+<li><p><code>sideEffects: false</code> 现在已经支持在 package.json 里面使用</p>
+<ul>
+<li>package.json里面<code>sideEffect</code>允许使用glob表达式和glob表达式数组</li>
+</ul>
+</li>
+<li><p>JSONP数组已经代替JSONP函数使用 -&gt; 异步脚本标记支持， 顺序不再重要。</p>
+</li>
+<li>添加新的选项<code>optimization.splitChunks</code><br>  Details: <a href="https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693" target="_blank" rel="noopener">https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693</a></li>
+<li>webpack自身移除了废弃的分支代码<ul>
+<li>之前：Uglify移除掉不用的代码</li>
+<li>现在： webpack移除掉不用的代码（相同情况下）</li>
+<li>当遇到废弃的分支代码里面含有<code>import()</code>将会停止移除操作。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>语法<ul>
+<li><code>import()</code> 支持黑科技般的注释： <code>webpackInclude</code>和<code>webpackExclude</code>。<br>  他们允许你在使用动态表达式导入的时候过滤掉一些文件。</li>
+<li>使用<code>System.import()</code>将会提示警告<ul>
+<li>你可以通过<code>Rule.parser.system:true</code>关闭掉这些警告</li>
+<li>你可以通过<code>Rule.parser.sustem:false</code>来禁用<code>System.import</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>配置<ul>
+<li>可以通过<code>module.rules[].resolve</code>来配置解析方式。这将会跟全局的配置合并到一起。</li>
+<li><code>optimization.minimize</code>已经被添加到配置里面，通过其开关最小化/压缩功能。<ul>
+<li>默认在production模式中开启，默认在development模式中关闭</li>
+</ul>
+</li>
+<li><code>optimization.minimizer</code>已经被添加到配置里面，通过其去设置压缩处理程序和选项。</li>
+</ul>
+</li>
+<li>使用<ul>
+<li>一些插件的选项已经失效</li>
+<li>CLI已经迁移到了webpack-cli，你需要安装webpack-cli才能使用CLI</li>
+<li>ProgressPlugin插件 (–progress) 现在会打印显示插件的名字<ul>
+<li>至少对已经迁移到新插件系统的插件来说</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>性能<ul>
+<li>UglifyJs现在默认缓存和并行化</li>
+<li>许多的性能提升，尤其是更快的增量构建</li>
+<li>RemoveParentModulesPlugin的性能提升</li>
+</ul>
+</li>
+<li>Stats<ul>
+<li>Stats现在会在有串联的模块中打印显示层级嵌套</li>
+</ul>
+</li>
+</ul>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><ul>
+<li>配置<ul>
+<li>模块类型会自动在mjs,json和wasm扩展中自动选择。其他扩展需要通过<code>module.rules[].type</code>中配置。</li>
+<li>错误的<code>options.dependencies</code>配置会抛出错误。</li>
+<li><code>sideEffects</code> 可以通过module.rules覆盖</li>
+<li><code>output.hashFunction</code>现在可以是一个自定义的hash处理函数<ul>
+<li>由于性能原因，您可以提供一个非cryto散列函数</li>
+<li>添加<code>output.globalObject</code> config选项，以允许在运行时exitCode中选择全局对象引用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>运行时<ul>
+<li>错误的chunk加载现在会有包含更多的信息和两个新属性type和request</li>
+</ul>
+</li>
+<li>devtool<ul>
+<li>在sourcemaps和eval里面移除了底部注释</li>
+<li>在eval的soucemap里面添加了<code>include</code> <code>test</code> 和<code>exclude</code>的支持</li>
+</ul>
+</li>
+<li>性能<ul>
+<li>webpack的AST可以被正确的在loader中传递，以避免额外重复的语法分析</li>
+<li>没有被使用的模块将不再被关联</li>
+<li>添加一个ProfillingPlugin插件，可以写（Chrome）包含timings的profile文件</li>
+<li>迁移， 用<code>for of</code>代替<code>forEach</code></li>
+<li>迁移， 用<code>Map</code>和<code>Set</code>代替 Objects</li>
+<li>迁移，用<code>includes</code>代替<code>indexOf</code></li>
+<li>用正则表达式替换掉一些字符串方法</li>
+<li>队列不再查询同一个作业两次</li>
+<li>默认使用更快的md4 hash来做hashing</li>
+</ul>
+</li>
+<li>优化<ul>
+<li>当使用超过25个导出的时候会使导出的名字更短</li>
+<li>script标签不再加入<code>text/javascript</code>和<code>async</code>，因为他们是默认值（节省一些字节）</li>
+<li>串联的模块会生成更少的代码</li>
+<li>常量替换现在不需要<code>__webpack_require__</code>，并且参数已经删除</li>
+</ul>
+</li>
+<li>默认<ul>
+<li>webpack现在会按<code>.wasm</code>,<code>.mjs</code>,<code>.js</code>,<code>.json</code>扩展的顺序寻找文件</li>
+<li><code>output.pathinfo</code>现在是development模式默认开启</li>
+<li>production模式默认关闭内存缓存</li>
+<li><code>entry</code>默认指向<code>./src</code></li>
+<li><code>output.path</code>默认指向<code>./dist</code></li>
+<li>不指定 mode 的时候默认使用 production 模式</li>
+</ul>
+</li>
+<li>语法<ul>
+<li>上下文支资源查询</li>
+<li>在<code>import()</code>里面应用一个入口节点的名字会从警告变成错误提示</li>
+<li>更新acorn5以支持ES2018</li>
+</ul>
+</li>
+<li>插件<ul>
+<li><code>done</code>现在是一个异步钩子</li>
+</ul>
+</li>
+</ul>
+<h3 id="Bug修复"><a href="#Bug修复" class="headerlink" title="Bug修复"></a>Bug修复</h3><ul>
+<li>创建注释的时候不会再因为遇到*/而被打断</li>
+<li>webpack不再修改已经过去的选项对象</li>
+<li>编译器”watch-run”钩子现在包含编译器自身作为第一个参数</li>
+<li>添加<code>output.chunkCallbackName</code>以允许配置 webworker 模板</li>
+<li>使用 <code>mdoule.id/loaded</code> 可以正确的跳出模块链接<a href="https://zhuanlan.zhihu.com/p/27980441" target="_blank" rel="noopener">Scope Hoisting（作用域提升）</a></li>
+<li>OccurenceOrderPlugin 现在能正确的对模块进行排序(而不是相反)</li>
+<li>当调用<code>Watching.invalidate</code>时，文件的时间戳是从监听器中获取</li>
+<li>修复post loader中的不正确的<code>-!</code>行为</li>
+<li>在<code>MultiCompiler</code>中添加<code>run</code>和<code>watchRun</code>钩子</li>
+<li>在ESM中<code>this</code>会是<code>undefined</code></li>
+<li>可以通过<code>var</code>,<code>let</code>,<code>const</code>来进行正确的变量声明</li>
+<li>解析器现在在使用模块类型<code>javascript/dynamic</code>或<code>javascript/module</code>时，用正确的源代码（模块/脚本）来解析源代码。</li>
+<li>在遇到<code>buildMetaof</code> Null丢失模块的时候不会打断</li>
+<li>在electron target中添加<code>original-fs</code>模块</li>
+<li>HMRPlugin 可以在<code>plugins</code>之外添加到编译器中</li>
+</ul>
+<h3 id="内部改动"><a href="#内部改动" class="headerlink" title="内部改动"></a>内部改动</h3><ul>
+<li>使用<code>tap</code>调用来替换<code>plugin</code>调用(新插件系统)</li>
+<li>迁移许多遗弃的插件到新的插件系统API中</li>
+<li>添加<code>buildMeta.exprotsType:default</code>到json模块中</li>
+<li>移除解析器中不用的函数(parserStringArray, parserCalculatedStringArray)</li>
+<li>移除清除<code>BasicEvaluatedExpression</code>和具有多个类型的能力</li>
+<li>使用<code>Buffur.from</code>替换<code>new Buffer</code></li>
+<li>避免使用<code>forEach</code>而是使用<code>for of</code></li>
+<li>用<code>neo-async</code>代替<code>async</code></li>
+<li>将可利用和增强-解析依赖项更新到新的主版本</li>
+<li>使用Prettier</li>
+</ul>
+<h3 id="移除的功能"><a href="#移除的功能" class="headerlink" title="移除的功能"></a>移除的功能</h3><ul>
+<li>移除 <code>module.loaders</code></li>
+<li>移除 <code>loaderContext.options</code></li>
+<li>移除 <code>Compliation.notCacheable</code>标记</li>
+<li>移除 <code>NoErrorsPlugin</code></li>
+<li>移除 <code>Dependency.isEqualResource</code></li>
+<li>移除 <code>NewWatchingPlugin</code></li>
+<li>移除 <code>CommonsChunkPlugin</code></li>
+</ul>
+<h3 id="破坏性的变更，针对插件-loader"><a href="#破坏性的变更，针对插件-loader" class="headerlink" title="破坏性的变更，针对插件/loader"></a>破坏性的变更，针对插件/loader</h3><ul>
+<li>新的插件系统<ul>
+<li><code>plugin</code>方法向后兼容</li>
+<li>插件应该使用<code>Compiler.hooks.xxx.tap(&lt;plugin name&gt;, fn)</code></li>
+</ul>
+</li>
+<li>新的主版本增强型解析</li>
+<li>chunks的模板现在可以生成多个assets</li>
+<li><code>Chunk.chunks/parents/blocks</code>现在不在是数组。内部使用一个Set，并且有方法可以访问到它。</li>
+<li><code>Parser.scope.renames</code>和<code>Parser.scope.definitions</code>不再是 Object/Array , 而是 Map/Set.</li>
+<li>解析器使用<code>StackedSetMap</code>（LevelDB形式的数组结构）代替数组</li>
+<li>当应用插件的时候不再设置<code>Compiler.options</code></li>
+<li>由于重构，和谐的依赖关系已经发生改变</li>
+<li><code>Dependency.getReference()</code> 现在将返回一个 <code>weak</code> 属性.<code>Dependency.weak</code> 现在被<code>Dependency</code>的基类使用 并且在<code>getReference()</code>内部基础 impl 中返回</li>
+<li>构造器的参数对所有的<code>module</code>改变</li>
+<li>合并<code>ContextModule</code>和<code>resolveDependencies</code>中的选项</li>
+<li>改变并且重命名<code>import()</code>里面的依赖</li>
+<li>迁移<code>Compiler.resolvers</code>到<code>Compiler.resolverFactory</code>以使插件可以访问到</li>
+<li><code>Dependency.isEqualResource</code>被<code>Dependency.getResourceIdentifier</code>替换</li>
+<li><code>Template</code>里面的方法现在是静态方法</li>
+<li>新增一个新的 RuntimeTemplate 类，<code>outputOptions</code>和<code>requestShortener</code>迁移到这个类里面<ul>
+<li>许多方法更新成用RuntimeTemplate替代</li>
+<li>我们计划移动那些可以访问到运行时的代码到一个新类</li>
+</ul>
+</li>
+<li><code>Module.meta</code>被<code>Module.buildMeta</code>替代</li>
+<li>新增<code>Module.buildInfo</code>和<code>Module.factoryMeta</code></li>
+<li><code>Module</code>的一些属性被移动到一个新的对象</li>
+<li>添加那个指向<code>context</code>选项的<code>loaderContext.rootContext</code>。 loaders可能需要用它去创建相对于程序根的内容</li>
+<li>新增<code>this.hot</code>标记到loader上下文，当HMR开启的时候</li>
+<li><code>buildMeta.harmony</code>被<code>buildMeta.exportType: &quot;namespace&quot;</code>替代</li>
+<li>chunk图已经改变：<ul>
+<li>之前：chunks之间是通过父子关系关联</li>
+<li>现在： chunk组通过父子关系关联，chunk组包含chunks</li>
+<li>之前： 异步依赖的块引用一组chunks</li>
+<li>现在： 异步依赖引用的是单个chunk组</li>
+</ul>
+</li>
+<li>file/contextTimstamps现在是Maps</li>
+<li><code>map/foreach</code> <code>Chunks/Modules/Parents</code>方法已经被移除</li>
+<li>NormalModule 接收构造器里面的选项对象</li>
+<li>添加必要的生成参数给NormalModule</li>
+<li>在NormalModuleFactory里面添加<code>createGenerator</code>和<code>generator</code>钩子以自定义代码生成</li>
+<li>允许通过钩子自定义地渲染Chunks的mainfest</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/14/webpack4/" data-id="cjer2shcg0003ib4kx9wg9t4o" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/14/node8-md/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Node.js 8 中的重要新特性及优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/14/my-first-hexo-blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">my first hexo blog</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/14/node8-md/">Node.js 8 中的重要新特性及优化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/webpack4/">webpack4.0新版本变化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/my-first-hexo-blog/">my first hexo blog</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
